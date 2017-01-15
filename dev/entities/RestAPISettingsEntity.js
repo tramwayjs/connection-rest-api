@@ -20,6 +20,7 @@ export default class RestAPISettingsEntity extends Entity {
      * @memberOf RestAPISettingsEntity
      */
     constructor(settings) {
+        super();
         this.setHost(settings.host)
             .setPort(settings.port)
             .setPath(settings.path)
@@ -144,7 +145,7 @@ export default class RestAPISettingsEntity extends Entity {
      * 
      * @memberOf RestAPISettingsEntity
      */
-    getIsJson() {
+    isJson() {
         return this.json;
     }
 
@@ -155,6 +156,7 @@ export default class RestAPISettingsEntity extends Entity {
      */
     setJson(value) {
         this.json = value || true;
+        return this;
     }
 
     /**
@@ -163,7 +165,11 @@ export default class RestAPISettingsEntity extends Entity {
      * @memberOf RestAPISettingsEntity
      */
     getHeaders() {
-        return this.headers;
+        if ("headers" in this) {
+            return this.headers;
+        }
+
+        return null;
     }
 
     /**
@@ -173,7 +179,9 @@ export default class RestAPISettingsEntity extends Entity {
      * @memberOf RestAPISettingsEntity
      */
     setHeaders(headers) {
-        this.headers = headers;
+        if (headers) {
+            this.headers = headers;
+        }
         return this;
     }
 

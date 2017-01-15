@@ -64,6 +64,6 @@ describe("Simple acceptance tests to ensure library returns what's promised.", f
         lib.default, 
         "RestAPIConnection", 
         [],
-        ["getItem", "getItems", "getAllItems", "findItems", "hasItem", "hasItems", "countItems", "createItem", "updateItem", "deleteItem", "deleteItems", "query"]
+        ["getItem", "getItems", "getAllItems", "findItems", "hasItem", "hasItems", "countItems", "createItem", "updateItem", "deleteItem", "deleteItems", "query", "prepareParams", "sendRequest"]
     ));
 });

@@ -7,6 +7,15 @@ export default class RestAPIConnection extends Connection {
         super();
         this.options = new RestAPISettingsEntity(options);
     }
+    
+    /**
+     * @param {function(Error, Object)} cb
+     * 
+     * @memberOf RestAPIConnection
+     */
+    getAllItems(cb) {
+        return this.sendRequest("get", cb);
+    }
 
     /**
      * @param {number|string} id
@@ -89,6 +98,25 @@ export default class RestAPIConnection extends Connection {
         return this.sendRequest("delete", {query: {ids: JSON.stringify(ids)}}, cb);
     }
 
+    /**
+     * @param {Object} params
+     * @param {Object} query
+     * 
+     * @memberOf RestAPIConnection
+     */
+    prepareParams(params, query) {
+        let path = this.options.getPath();
+
+        if (params) {
+            path = Router.buildPath(path, ...Object.values(params));
+        }
+
+        if (query) {
+            path += '?' + Router.buildQuery(query);
+        }
+
+        this.options.setPath("/" + path);
+    }
     
     /**
      * @param {string} method
@@ -103,13 +131,7 @@ export default class RestAPIConnection extends Connection {
         }
 
         this.options.setMethod(method).setJson().setHeaders(req.headers);
-        let path = req.params ? Router.buildPath(this.options.getPath(), req.params) : this.options.getPath();
-
-        if (req.query) {
-            path += '?' + Router.buildQuery(req.query);
-        }
-
-        this.options.setPath(path);
+        this.prepareParams(req.params, req.query)
 
         let respondAsText = this.options.shouldRespondAsText();
 

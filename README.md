@@ -147,7 +147,7 @@ The API suite provides a new `ServerIPResolverService` to get the IP address of 
 To use it, import the class and use the static `getIp` method.
 
 ```
-import {services} from 'tramway-connections-rest-api`;
+import {services} from 'tramway-connection-rest-api`;
 let {ServerIPResolverService} = services;
 ```
 

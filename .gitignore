@@ -6,3 +6,4 @@ core/**/*.js.map
 /test.js
 /connections/
 /entities/
+/services/

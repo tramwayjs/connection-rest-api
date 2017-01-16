@@ -19,7 +19,7 @@ The `RestAPIConnection` is a derived `Connection` which follows the same interfa
 ### Configuration parameters
 | Parameter | Default | Usage |
 | --- | --- | --- |
-| host | `"127.0.0.1"` | Source of API |
+| host | Uses `ServerIPResolverService` to get host machine's IP | Source of API, use it when you have a direct accessible path |
 | port | `8080` | Port API is on |
 | path | `"/"` | Path from host that resource is on |
 | respondAsText | false | Defaults to returning an object, this override will return the response as is from the buffer |
@@ -126,7 +126,7 @@ Note that not all of the Connection's core functions will be available at this t
 | ```deleteItems(ids : any[], cb: function(Error, Object[]))``` | Available |
 | ```query(query: string/Object, values: Object, cb: function(Error, Object[]))``` | Not available, use findItems when available |
 
-## Model
+### Model
 
 | Function | Usaability |
 | --- | --- |
@@ -140,3 +140,19 @@ Note that not all of the Connection's core functions will be available at this t
 | ```find(condtions: string/Object, cb: function(Error, Object[]))``` | Not yet Usable |
 | ```getMany(ids: any[], cb: function(Error, Object[]))``` | Usable |
 | ```count(conditions, cb: function(Error, number))``` | Not yet Usable |
+
+## Services
+The API suite provides a new `ServerIPResolverService` to get the IP address of the host machine. 
+
+To use it, import the class and use the static `getIp` method.
+
+```
+import {services} from 'tramway-connections-rest-api`;
+let {ServerIPResolverService} = services;
+```
+
+To use it:
+
+```
+let ip = ServerIPResolverService.getIp();
+```

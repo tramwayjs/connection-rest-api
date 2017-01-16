@@ -66,4 +66,19 @@ describe("Simple acceptance tests to ensure library returns what's promised.", f
         [],
         ["getItem", "getItems", "getAllItems", "findItems", "hasItem", "hasItems", "countItems", "createItem", "updateItem", "deleteItem", "deleteItems", "query", "prepareParams", "sendRequest"]
     ));
+
+    describe("Should return an object for services.", function(){
+        it("Should return an object for services.", function(){
+            assert.strictEqual(typeof lib.services, "object");
+        });
+        it("There should be the same services as in the previous version", function(){
+            assert.deepEqual(Object.keys(lib.services), ["ServerIPResolverService"]);
+        });
+        describe("Should return a proper 'ServerIPResolverService' class", describeCoreClass(
+            lib.services.ServerIPResolverService, 
+            "ServerIPResolverService", 
+            ['getIp'],
+            []     
+        ));
+    });
 });

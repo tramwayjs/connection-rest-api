@@ -1,7 +1,7 @@
 import {Entity, services} from 'tramway-core';
+import ServerIPResolverService from '../services/ServerIPResolverService';
 let {TypeEnforcementService} = services;
 
-const DEFAULT_LOCAL_HOST = '127.0.0.1';
 const DEFAULT_PORT = 8080;
 const DEFAULT_PATH = '/';
 const DEFAULT_RESPOND_AS_TEXT = false;
@@ -44,7 +44,7 @@ export default class RestAPISettingsEntity extends Entity {
      */
     setHost(host) {
         this.host = TypeEnforcementService.enforceTypes(host, 'string', function(value) {
-            return DEFAULT_LOCAL_HOST;
+            return ServerIPResolverService.getIp();
         });
         return this;
     }

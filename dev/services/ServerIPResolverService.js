@@ -15,10 +15,9 @@ export default class ServerIPResolverService {
      */
     static getIp() {
         let networkInterfaces = os.networkInterfaces();
-        let values = Object.values(networkInterfaces)
-            .reduce(function(a, b) {
-                return a.concat(b);
-            }).filter(function(ip) {
+        let values = Object.keys(networkInterfaces)
+            .map(key => networkInterfaces[key])
+            .filter(function(ip) {
                 return ip.family == 'IPv4' && ip.internal == false;
             });
         return values.length ? values[0].address : DEFAULT_LOCAL_HOST;

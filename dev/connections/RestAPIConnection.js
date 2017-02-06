@@ -101,10 +101,11 @@ export default class RestAPIConnection extends Connection {
     /**
      * @param {Object} params
      * @param {Object} query
+     * @return {string} path
      * 
      * @memberOf RestAPIConnection
      */
-    prepareParams(params, query) {
+    preparePath(params, query) {
         let path = this.options.getPath();
 
         if (params) {
@@ -115,7 +116,24 @@ export default class RestAPIConnection extends Connection {
             path += '?' + Router.buildQuery(query);
         }
 
-        this.options.setPath("/" + path);
+        return "/" + path;
+    }
+
+    /**
+     * @param {RestAPISettingsEntity|Object} opts
+     * @param {string} method
+     * @param {Object} req
+     * @returns
+     * 
+     * @memberOf RestAPIConnection
+     */
+    prepareOptions(opts, method, req) {
+        let options = new RestAPISettingsEntity(this.options);
+        options.setMethod(method).setJson().setHeaders(req.headers);
+
+        let path = this.preparePath(req.params, req.query);
+        options.setPath(path);
+        return options;
     }
     
     /**
@@ -128,14 +146,13 @@ export default class RestAPIConnection extends Connection {
     sendRequest(method, req, cb) {
         if(typeof req === "function") {
             cb = req;
+            req = {};
         }
 
-        this.options.setMethod(method).setJson().setHeaders(req.headers);
-        this.prepareParams(req.params, req.query)
+        let options = this.prepareOptions(this.options, method, req);
+        let respondAsText = options.shouldRespondAsText();
 
-        let respondAsText = this.options.shouldRespondAsText();
-
-        let request = http.request(this.options, function(res) {
+        let request = http.request(options, function(res) {
             var response = "";
             res.on("data", function(chunk) {
                 response += chunk;

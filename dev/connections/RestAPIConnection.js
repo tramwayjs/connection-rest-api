@@ -129,7 +129,7 @@ export default class RestAPIConnection extends Connection {
      */
     prepareOptions(opts, method, req) {
         let options = new RestAPISettingsEntity(this.options);
-        options.setMethod(method).setJson().setHeaders(req.headers);
+        options.setMethod(method).setJson();
 
         let path = this.preparePath(req.params, req.query);
         options.setPath(path);

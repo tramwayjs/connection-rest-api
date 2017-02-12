@@ -23,6 +23,7 @@ The `RestAPIConnection` is a derived `Connection` which follows the same interfa
 | port | `8080` | Port API is on |
 | path | `"/"` | Path from host that resource is on |
 | respondAsText | false | Defaults to returning an object, this override will return the response as is from the buffer |
+| headers | undefined | Indicates what headers to use with the request. Note that for a standard API that will perform POST and PUT requests with a JSON object, it is recommended to use the following as part of your headers: ```{"content-type": "application/json; charset=utf-8"}```. |
 
 ## Getting started
 It is recommended to make a config file with the API's core data and make an extension class to handle it before injecting that extension class into the model to work with the rest of Tramway's built-in features. The alternative to the extension class is calling the config parameters with the model every time the model is used instead of just importing the wrapper connection to the model.
@@ -35,7 +36,8 @@ export default {
     "host": "127.0.0.1",
     "port": 8080,
     "path": "yourresourcepath",
-    "respondAsText": false
+    "respondAsText": false,
+    "headers": {"content-type": "application/json; charset=utf-8"}
 };
 ```
 

@@ -21,11 +21,12 @@ export default class RestAPISettingsEntity extends Entity {
      */
     constructor(settings) {
         super();
-        let {host, port, path, respondAsText} = settings || {};
+        let {host, port, path, respondAsText, headers} = settings || {};
         this.setHost(host)
             .setPort(port)
             .setPath(path)
-            .setRespondAsText(respondAsText);
+            .setRespondAsText(respondAsText)
+            .setHeaders(headers);
     }
 
     /**

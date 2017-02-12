@@ -3,7 +3,7 @@ import ServerIPResolverService from '../services/ServerIPResolverService';
 let {TypeEnforcementService} = services;
 
 const DEFAULT_PORT = 8080;
-const DEFAULT_PATH = '/';
+const DEFAULT_PATH = '';
 const DEFAULT_RESPOND_AS_TEXT = false;
 
 /**

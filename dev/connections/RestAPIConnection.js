@@ -116,7 +116,7 @@ export default class RestAPIConnection extends Connection {
             path += '?' + Router.buildQuery(query);
         }
 
-        return "/" + path;
+        return Router.buildPath("/", path);
     }
 
     /**

@@ -1,4 +1,5 @@
-import {Entity, services} from 'tramway-core';
+import {services} from 'tramway-core';
+import {Entity} from 'tramway-core-connection';
 import ServerIPResolverService from '../services/ServerIPResolverService';
 let {TypeEnforcementService} = services;
 

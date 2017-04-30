@@ -1,4 +1,5 @@
-import {Connection, Router} from 'tramway-core';
+import {Router} from 'tramway-core-router';
+import {Connection} from 'tramway-core-connection';
 import RestAPISettingsEntity from '../entities/RestAPISettingsEntity';
 import http from 'http';
 

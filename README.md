@@ -4,7 +4,7 @@ Tramway RestAPIConnection is a simple Connection add-on to simplify the process 
 1. `npm install tramway-connection-rest-api --save`
 
 # Example project
-https://gitlab.com/tramwayjs/tramway-connections-example
+https://gitlab.com/tramwayjs/tramway-connection-example
 
 # Documentation
 

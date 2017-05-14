@@ -111,8 +111,8 @@ export default class RestAPISettingsEntity extends Entity {
      * 
      * @memberOf RestAPISettingsEntity
      */
-    setRespondAsText(value) {
-        this.respondAsText = value || DEFAULT_RESPOND_AS_TEXT;
+    setRespondAsText(value = DEFAULT_RESPOND_AS_TEXT) {
+        this.respondAsText = value;
         return this;
     }
 
@@ -157,8 +157,8 @@ export default class RestAPISettingsEntity extends Entity {
      * 
      * @memberOf RestAPISettingsEntity
      */
-    setJson(value) {
-        this.json = value || true;
+    setJson(value = true) {
+        this.json = value;
         return this;
     }
 

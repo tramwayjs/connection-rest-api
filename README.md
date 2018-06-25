@@ -1,4 +1,4 @@
-Tramway RestAPIConnection is a simple Connection add-on to simplify the process of reading APIs from an external client built with Node's built-in http module.
+Tramway RestApiProvider is a simple Provider add-on to simplify the process of reading APIs from an external client built with Node's built-in http module.
 
 # Installation:
 1. `npm install tramway-connection-rest-api --save`
@@ -10,11 +10,12 @@ https://gitlab.com/tramwayjs/tramway-connection-example
 
 ## Recommended Folder Structure in addition to Tramway
 - config
-- connections
-- models
+- providers
+- repositories
+- entities
 
-## RestAPIConnection
-The `RestAPIConnection` is a derived `Connection` which follows the same interface.
+## RestApiProvider
+The `RestApiProvider` is a derived `Provider` which follows the same interface.
 
 ### Configuration parameters
 | Parameter | Default | Usage |
@@ -26,7 +27,7 @@ The `RestAPIConnection` is a derived `Connection` which follows the same interfa
 | headers | undefined | Indicates what headers to use with the request. Note that for a standard API that will perform POST and PUT requests with a JSON object, it is recommended to use the following as part of your headers: ```{"content-type": "application/json; charset=utf-8"}```. |
 
 ## Getting started
-It is recommended to make a config file with the API's core data and make an extension class to handle it before injecting that extension class into the model to work with the rest of Tramway's built-in features. The alternative to the extension class is calling the config parameters with the model every time the model is used instead of just importing the wrapper connection to the model.
+It is recommended to make a config file with the API's core data and make an extension class to handle it before injecting that extension class into the model to work with the rest of Tramway's built-in features. The alternative to the extension class is calling the config parameters with the Repository every time the repository is used instead of just importing the provider to the repository.
 
 In your config folder add a file after the name of your API.
 
@@ -41,107 +42,70 @@ export default {
 };
 ```
 
-Next up, the wrapper `Connection` is simple enough:
+Next up, the wrapper `Provider` is simple enough:
 
-YourAPIWrapperConnection.js:
+YourAPIProvider.js:
 ```
-import RestAPIConnection from 'tramway-connection-rest-api';
+import RestApiProvider from 'tramway-connection-rest-api';
 import options from '../config/yourapi.js';
 
 /**
  * @export
- * @class YourAPIWrapperConnection
- * @extends {RestAPIConnection}
+ * @class YourAPIProvider
+ * @extends {RestApiProvider}
  */
-export default class YourAPIWrapperConnection extends RestAPIConnection {
+export default class YourAPIProvider extends RestApiProvider {
     constructor() {
         super(options);
     }
 }
 ```
 
-And then to get the most of it, make the `Model` class. Make sure you have an entity as well.
+And then to get the most of it, pass the provider to your `Repository` class.
 
-YourAPIModel.js:
 ```
-import {Model} from 'tramway-core';
-import ExampleAPIWrapperConnection from '../connections/ExampleAPIWrapperConnection';
-import TestEntity from '../entities/TestEntity';
+import {Repository} from 'tramway-core-connection';
+import YourAPIProvider from '../connections/YourAPIProvider';
 
-export default class TestModel extends Model {
-
-    /**
-     * Creates an instance of TestModel.
-     * 
-     * @param {TestEntity} item
-     * 
-     * @memberOf TestModel
-     */
-    constructor(item) {
-        if (!item || !item instanceof TestEntity) {
-            item = new TestEntity();
-        }
-        super(new ExampleAPIWrapperConnection(), item);
-    }
-
-    /**
-     * @returns {Number} id
-     * 
-     * @memberOf TestModel
-     */
-    getId() {
-        return this.entity.getId();
-    }
-
-    /**
-     * @param {Number} id
-     * @returns {Model}
-     * 
-     * @memberOf TestModel
-     */
-    setId(id) {
-        this.entity.setId(id);
-        return this;
-    }
-}
+new Repository(new YourAPIProvider(options), new Factory());
 ```
 
-In terms of set up, that's it. You can now use your Model in the Controller just as you would with any connection and get the same experience as with other connections.
+The following can also be easily achieved with dependency injection using `tramway-core-dependency-injector`.
 
-Note that not all of the Connection's core functions will be available at this time but here's a rundown of what you have.
+Note that not all of the Provider's core functions will be available at this time but here's a rundown of what you have.
 
 ## Exposed Methods with this Library
 
-### Connection
+### Provider
 
 | Function | Availability |
 | ----- | ----- |
-| ```getItem(id: any, cb: function(Error, Object))``` | Available |
-| ```getItems(ids: any[], cb: function(Error, Object[]))``` | Available |
-| ```findItems(conditions: string/Object, cb: function(Error, Object[]))``` | To come, will convert conditions to query string |
-| ```hasItem(id: any, cb: function(Error, boolean))``` | Available, but relies on the endpoint supporting HEAD http method. |
-| ```hasItems(ids : any[], cb: function(Error, boolean))``` | Available, but relies on the endpoint supporting HEAD http method. |
-| ```countItems(conditions: any, cb: function(Error, number))``` | Not yet available |
-| ```createItem(item: Entity/Object, cb: function(Error, Object))``` | Available |
-| ```updateItem(id: any, item: Entity/Object, cb: function(Error, Object))``` | Available |
-| ```deleteItem(id: any, cb: function(Error, Object))``` | Available |
-| ```deleteItems(ids : any[], cb: function(Error, Object[]))``` | Available |
-| ```query(query: string/Object, values: Object, cb: function(Error, Object[]))``` | Not available, use findItems when available |
+| ```getOne(id: any)``` | Available |
+| ```getMany(ids: any[])``` | Available |
+| ```get()``` | Available |
+| ```find(conditions: string/Object)``` | To come, will convert conditions to query string |
+| ```has(id: any)``` | Available, but relies on the endpoint supporting HEAD http method. |
+| ```hasThese(ids : any[])``` | Available, but relies on the endpoint supporting HEAD http method. |
+| ```count(conditions: any)``` | Not yet available |
+| ```create(item: Entity/Object)``` | Available |
+| ```update(id: any, item: Entity/Object)``` | Available |
+| ```delete(id: any)``` | Available |
+| ```deleteMany(ids : any[])``` | Available |
+| ```query(query: string/Object, values: Object)``` | Not available, use findItems when available |
 
-### Model
+### Repository
 
 | Function | Usaability |
 | --- | --- |
-| ```updateEntity(Object)``` | Usable |
-| ```exists(cb: function(Error, boolean))``` | Usable as long as API utilizes HEAD method |
-| ```get(cb: function(Error, Object))``` | Usable |
-| ```getAll(cb: function(Error, Object[]))``` | Usable |
-| ```create(cb: function(Error, Object))``` | Usable |
-| ```update(cb: function(Error, Object))``` | Usable |
-| ```delete(cb: function(Error, Object))``` | Usable |
-| ```find(condtions: string/Object, cb: function(Error, Object[]))``` | Not yet Usable |
-| ```getMany(ids: any[], cb: function(Error, Object[]))``` | Usable |
-| ```count(conditions, cb: function(Error, number))``` | Not yet Usable |
+| ```exists(id: any)``` | Usable as long as API utilizes HEAD method |
+| ```getOne(id: any)``` | Usable |
+| ```get()``` | Usable |
+| ```create(entity: Entity)``` | Usable |
+| ```update(entity: Entity)``` | Usable |
+| ```delete(id: any)``` | Usable |
+| ```find(condtions: string/Object)``` | Not yet Usable |
+| ```getMany(ids: any[])``` | Usable |
+| ```count(conditions)``` | Not yet Usable |
 
 ## Services
 The API suite provides a new `ServerIPResolverService` to get the IP address of the host machine. 

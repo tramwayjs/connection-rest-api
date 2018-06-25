@@ -7,3 +7,5 @@ core/**/*.js.map
 /connections/
 /entities/
 /services/
+/providers/
+.DS_Store

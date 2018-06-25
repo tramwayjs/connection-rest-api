@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "tramway-core": "^1.0.0",
-    "tramway-core-connection": "^1.0.0",
+    "tramway-core-connection": "^2.0.0",
     "tramway-core-router": "^1.2.0"
   }
 }

@@ -3,6 +3,9 @@ import {Connection} from 'tramway-core-connection';
 import RestAPISettingsEntity from '../entities/RestAPISettingsEntity';
 import http from 'http';
 
+/**
+ * @deprecated Use RestApiProvider instead
+ */
 export default class RestAPIConnection extends Connection {
     constructor(options) {
         super();

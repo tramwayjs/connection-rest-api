@@ -5,11 +5,11 @@ var describeCoreClass = utils.describeCoreClass;
 var describeFunction = utils.describeFunction;
 
 describe("Simple acceptance tests to ensure library returns what's promised.", function(){
-    describe("Should return a proper 'RestAPIConnection' class", describeCoreClass(
+    describe("Should return a proper 'RestApiProvider' class", describeCoreClass(
         lib.default, 
-        "RestAPIConnection", 
+        "RestApiProvider", 
         [],
-        ["getItem", "getItems", "getAllItems", "hasItem", "hasItems", "createItem", "updateItem", "deleteItem", "deleteItems", "preparePath", "prepareOptions", "sendRequest"]
+        ["get", "getOne", "getMany", "has", "hasThese", "create", "update", "delete", "deleteMany", "preparePath", "prepareOptions", "sendRequest"]
     ));
 
     describe("Should return an object for services.", function(){

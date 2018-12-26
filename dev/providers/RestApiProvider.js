@@ -27,7 +27,7 @@ export default class RestApiProvider extends Provider {
      * @memberOf RestApiProvider
      */
     async getOne(id) {
-        return await this.sendRequest("get", {params: `${id}`});
+        return await this.sendRequest("get", {params: {id: `${id}`}});
     }
 
      /**
@@ -49,7 +49,7 @@ export default class RestApiProvider extends Provider {
      * @memberOf RestApiProvider
      */
     async has(id) {
-        return await this.sendRequest("head", {params: `${id}`});
+        return await this.sendRequest("head", {params: {id: `${id}`}});
     }
 
     /**

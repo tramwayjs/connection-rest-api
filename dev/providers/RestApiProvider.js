@@ -160,6 +160,17 @@ export default class RestApiProvider extends Provider {
         return await new Promise((resolve, reject) => {
             let request = http.request(options, res => {
                 let response = "";
+
+                if (200 < res.statusCode && 300 > res.statusCode) {
+                    return resolve(res.headers);
+                }
+
+                if (400 <= res.statusCode) {
+                    let err = new Error(response);
+                    err.statusCode = res.statusCode;
+                    return reject(err);
+                }
+                
                 res.on("data", function(chunk) {
                     response += chunk;
                 });

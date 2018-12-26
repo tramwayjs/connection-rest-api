@@ -1,6 +1,6 @@
 {
   "name": "tramway-connection-rest-api",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A pre-made RestAPIConnection using http and rest principles to manipulate data",
   "author": "Julian Wolfe",
   "license": "MIT",

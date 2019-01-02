@@ -119,7 +119,19 @@ export default class RestApiProvider extends Provider {
         let path = this.options.getPath();
 
         if (params) {
-            path = Router.buildPath(path, ...Object.values(params));
+            let appended = [];
+            for (let key in params) {
+                let param = `:${key}`;
+
+                if (-1 === path.search(param)) {
+                    appended.push(params[key]);
+                    continue;
+                }
+
+                path = path.replace(`:${key}`, params[key]);
+            }
+
+            path = Router.buildPath(path, ...appended);
         }
 
         if (query) {

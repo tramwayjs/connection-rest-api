@@ -83,7 +83,7 @@ Note that not all of the Provider's core functions will be available at this tim
 | ```getOne(id: any)``` | Available |
 | ```getMany(ids: any[])``` | Available |
 | ```get()``` | Available |
-| ```find(conditions: string/Object)``` | To come, will convert conditions to query string |
+| ```find(conditions: Object, path: string)``` | Available, sends conditions object as query string |
 | ```has(id: any)``` | Available, but relies on the endpoint supporting HEAD http method. |
 | ```hasThese(ids : any[])``` | Available, but relies on the endpoint supporting HEAD http method. |
 | ```count(conditions: any)``` | Not yet available |

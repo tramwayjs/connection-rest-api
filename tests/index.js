@@ -9,7 +9,7 @@ describe("Simple acceptance tests to ensure library returns what's promised.", f
         lib.default, 
         "RestApiProvider", 
         [],
-        ["get", "getOne", "getMany", "has", "hasThese", "create", "update", "delete", "deleteMany", "preparePath", "prepareOptions", "sendRequest"]
+        ["get", "getOne", "getMany", "has", "hasThese", "create", "update", "delete", "deleteMany", "preparePath", "prepareOptions", "sendRequest", "find"]
     ));
 
     describe("Should return an object for services.", function(){

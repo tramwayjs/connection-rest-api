@@ -30,7 +30,7 @@ export default class RestApiProvider extends Provider {
         return await this.sendRequest("get", {params: {id: `${id}`}});
     }
 
-     /**
+    /**
      * @param {number[]} ids
      * @returns {Object|string}
      * @throws {Error}
@@ -106,6 +106,17 @@ export default class RestApiProvider extends Provider {
      */
     async deleteMany(ids) {
         return await this.sendRequest("delete", {query: {ids: JSON.stringify(ids)}});
+    }
+
+    /**
+     * @param {Object} conditions
+     * @returns {Object|string}
+     * @throws {Error}
+     * 
+     * @memberOf RestApiProvider
+     */
+    async find(conditions, path) {
+        return await this.sendRequest("get", {query: conditions, params: {path: `${path}`}});
     }
 
     /**

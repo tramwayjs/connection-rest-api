@@ -115,7 +115,7 @@ export default class RestApiProvider extends Provider {
      * 
      * @memberOf RestApiProvider
      */
-    async find(conditions, path) {
+    async find(conditions, path = '') {
         return await this.sendRequest("get", {query: conditions, params: {path: `${path}`}});
     }
 

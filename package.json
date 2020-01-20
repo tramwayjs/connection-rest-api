@@ -1,34 +1,34 @@
 {
   "name": "tramway-connection-rest-api",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "A pre-made RestAPIConnection using http and rest principles to manipulate data",
   "author": "Julian Wolfe",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/tramwayjs/tramway-connection-rest-api.git"
+    "url": "https://github.com/tramwayjs/connection-rest-api.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/tramwayjs/tramway-connection-rest-api/issues?label_name%5B%5D=bug"
+    "url": "https://github.com/tramwayjs/connection-rest-api/labels/bug"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "prepublish": "npm run compile",
-    "compile": "gulp distribute",
-    "test": "gulp distribute && mocha tests"
+    "prepublish": "npm run build",
+    "build": "./node_modules/.bin/babel src -d dist",
+    "test": "./node_modules/.bin/babel src -d dist && mocha tests"
   },
   "devDependencies": {
-    "babel-plugin-transform-flow-strip-types": "^6.14.0",
-    "babel-preset-es2015-node6": "^0.3.0",
-    "gulp": "~3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-sourcemaps": "~1.9.1",
-    "mocha": "^3.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "mocha": "^7.0.0",
+    "tramway": "^0.5.1",
     "tramway-core-testsuite": "^1.2.0"
   },
   "dependencies": {
-    "tramway-core": "^1.0.0",
-    "tramway-core-connection": "^2.0.0",
-    "tramway-core-router": "^1.2.0"
+    "tramway-core": "^2.2.2",
+    "tramway-core-connection": "^2.1.2",
+    "tramway-core-router": "^3.6.2"
   }
 }

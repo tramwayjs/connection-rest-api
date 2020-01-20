@@ -22,13 +22,13 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/plugin-transform-flow-strip-types": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
-    "mocha": "^3.2.0",
+    "mocha": "^7.0.0",
     "tramway": "^0.5.1",
     "tramway-core-testsuite": "^1.2.0"
   },
   "dependencies": {
-    "tramway-core": "^1.0.0",
-    "tramway-core-connection": "^2.0.0",
-    "tramway-core-router": "^1.2.0"
+    "tramway-core": "^2.2.2",
+    "tramway-core-connection": "^2.1.2",
+    "tramway-core-router": "^3.6.2"
   }
 }
